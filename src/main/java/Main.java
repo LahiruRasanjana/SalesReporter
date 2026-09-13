@@ -6,6 +6,7 @@ import output.OutputStrategy;
 import report.SalesReportGenerator;
 import service.SalesReportService;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -53,10 +54,14 @@ public class Main {
             if ("file".equalsIgnoreCase(outputMethod)) {
                 System.out.println("Report successfully saved to " + outputFilePath);
             }
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: CSV file not found at path: " + csvFilePath);
         } catch (IOException e) {
-            System.err.println("Error processing file: " + e.getMessage());
+            System.err.println("Error reading or writing file: " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.err.println("Error: Invalid numeric value in CSV file.");
+            System.err.println("Error: CSV contains invalid numeric format. " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred: " + e.getMessage());
         }
     }
 
