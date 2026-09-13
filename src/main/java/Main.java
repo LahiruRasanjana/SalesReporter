@@ -6,19 +6,15 @@ import output.OutputStrategy;
 import report.SalesReportGenerator;
 import service.SalesReportService;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
-        String csvFilePath = "C:\\Users\\lap.lk\\Desktop\\SalesReporter\\sales.csv";
-        String outputMethod;
-        String outputFilePath = "report.txt";
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the Output Method [file/console]");
-        outputMethod = scanner.nextLine();
+        String csvFilePath = args[0];
+        String outputMethod = args[1].toLowerCase();
+        String outputFilePath = args.length > 2 ? args[2] : null;
 
         try {
             CsvSalesReader reader = new CsvSalesReader();
